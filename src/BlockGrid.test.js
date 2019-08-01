@@ -140,4 +140,43 @@ describe('BlockGrid', () => {
     expect(grid.grid[2][1].isEmpty()).toBe(false);
     expect(grid.grid[2][2].isEmpty()).toBe(true);
   });
+
+  it('drops filled blocks into empty ones', () => {
+    const grid = new BlockGrid(3, 3);
+    // We'll override the grid:
+    //
+    // y
+    // 2 R R R
+    // 1 E E B
+    // 0 E E B
+    //   0 1 2 x
+    //
+    // expected output
+    //
+    // y
+    // 2 E E R
+    // 1 E E B
+    // 0 R R B
+    //   0 1 2 x
+    grid.grid[0][0].empty();
+    grid.grid[0][1].empty();
+    grid.grid[0][2].colour = 'red';
+    grid.grid[1][0].empty();
+    grid.grid[1][1].empty();
+    grid.grid[1][2].colour = 'red';
+    grid.grid[2][0].colour = 'blue';
+    grid.grid[2][1].colour = 'blue';
+    grid.grid[2][2].colour = 'red';
+
+    grid.applyGravity();
+    expect(grid.grid[0][0].colour).toBe('red');
+    expect(grid.grid[0][1].isEmpty()).toBe(true);
+    expect(grid.grid[0][2].isEmpty()).toBe(true);
+    expect(grid.grid[1][0].colour).toBe('red');
+    expect(grid.grid[1][1].isEmpty()).toBe(true);
+    expect(grid.grid[1][2].isEmpty()).toBe(true);
+    expect(grid.grid[2][0].colour).toBe('blue');
+    expect(grid.grid[2][1].colour).toBe('blue');
+    expect(grid.grid[2][2].colour).toBe('red');
+  });
 });
