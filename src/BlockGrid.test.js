@@ -109,4 +109,35 @@ describe('BlockGrid', () => {
     const blueChain = grid.getChain(2, 0);
     expect(blueChain.length).toBe(2);
   });
+
+  it('can empty all chained blocks', () => {
+    const grid = new BlockGrid(3, 3);
+    // We'll override the grid:
+    //
+    // y
+    // 2 R R R
+    // 1 G G B
+    // 0 G G B
+    //   0 1 2 x
+    grid.grid[0][0].colour = 'green';
+    grid.grid[0][1].colour = 'green';
+    grid.grid[0][2].colour = 'red';
+    grid.grid[1][0].colour = 'green';
+    grid.grid[1][1].colour = 'green';
+    grid.grid[1][2].colour = 'red';
+    grid.grid[2][0].colour = 'blue';
+    grid.grid[2][1].colour = 'blue';
+    grid.grid[2][2].colour = 'red';
+
+    grid.emptyFrom(0, 2);
+    expect(grid.grid[0][0].isEmpty()).toBe(false);
+    expect(grid.grid[0][1].isEmpty()).toBe(false);
+    expect(grid.grid[0][2].isEmpty()).toBe(true);
+    expect(grid.grid[1][0].isEmpty()).toBe(false);
+    expect(grid.grid[1][1].isEmpty()).toBe(false);
+    expect(grid.grid[1][2].isEmpty()).toBe(true);
+    expect(grid.grid[2][0].isEmpty()).toBe(false);
+    expect(grid.grid[2][1].isEmpty()).toBe(false);
+    expect(grid.grid[2][2].isEmpty()).toBe(true);
+  });
 });
