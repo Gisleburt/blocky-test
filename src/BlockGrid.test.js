@@ -24,5 +24,19 @@ describe('BlockGrid', () => {
     });
   });
 
-  xit('good luck, have fun!', () => {});
+  it('it can get a blocks neighbours', () => {
+    const grid = new BlockGrid(3, 3);
+
+    const middleNeighbours = grid.getNeighbours(1, 1);
+    expect(middleNeighbours.length).toBe(4);
+
+    const edgeNeighbours = grid.getNeighbours(0, 1);
+    expect(edgeNeighbours.length).toBe(3);
+
+    const cornerNeighbours = grid.getNeighbours(0, 0);
+    expect(cornerNeighbours.length).toBe(2);
+
+    const outOfBoundsNeighbours = grid.getNeighbours(-1, -1);
+    expect(outOfBoundsNeighbours.length).toBe(0);
+  });
 });
