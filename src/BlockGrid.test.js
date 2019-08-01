@@ -24,6 +24,18 @@ describe('BlockGrid', () => {
     });
   });
 
+  it('can tell if coordinates are in bounds', () => {
+    const grid = new BlockGrid(2, 2);
+    expect(grid.isInBounds(0, 0)).toBe(true);
+    expect(grid.isInBounds(0, 1)).toBe(true);
+    expect(grid.isInBounds(1, 0)).toBe(true);
+    expect(grid.isInBounds(1, 1)).toBe(true);
+    expect(grid.isInBounds(0, 2)).toBe(false);
+    expect(grid.isInBounds(2, 0)).toBe(false);
+    expect(grid.isInBounds(0, -1)).toBe(false);
+    expect(grid.isInBounds(0, -1)).toBe(false);
+  });
+
   it('it can get a blocks neighbours', () => {
     const grid = new BlockGrid(3, 3);
 
