@@ -46,10 +46,7 @@ class BlockGrid {
   }
 
   isInBounds(x, y) {
-    return x >= 0
-      && x < this.width
-      && y >= 0
-      && y < this.height;
+    return x >= 0 && x < this.width && y >= 0 && y < this.height;
   }
 
   getNeighbours(x, y) {
@@ -77,7 +74,9 @@ class BlockGrid {
       return [];
     }
     const block = this.grid[x][y];
-    return this.getNeighbours(x, y).filter((neighbour) => (neighbour.colour === block.colour));
+    return this.getNeighbours(x, y).filter(
+      neighbour => neighbour.colour === block.colour
+    );
   }
 
   // We'll need to modify chain as we go.
@@ -88,7 +87,7 @@ class BlockGrid {
         return chain;
       }
       chain.push(block);
-      this.getSimilarNeighbours(x, y).forEach((block) => {
+      this.getSimilarNeighbours(x, y).forEach(block => {
         this.getChain(block.x, block.y, chain);
       });
       return chain;
@@ -96,7 +95,7 @@ class BlockGrid {
   }
 
   emptyFrom(x, y) {
-    this.getChain(x, y).forEach((block) => block.empty())
+    this.getChain(x, y).forEach(block => block.empty());
   }
 
   applyGravity() {
@@ -105,10 +104,10 @@ class BlockGrid {
     for (let y = 0; y < this.height; y++) {
       for (let x = 0; x < this.width; x++) {
         const block = this.grid[x][y];
-        if(block.isEmpty()) {
-          if(this.isInBounds(x, y+1)) {
-            const above = this.grid[x][y+1];
-            if(!above.isEmpty()) {
+        if (block.isEmpty()) {
+          if (this.isInBounds(x, y + 1)) {
+            const above = this.grid[x][y + 1];
+            if (!above.isEmpty()) {
               stuffFell = true;
               block.fill(above.colour);
               above.empty();

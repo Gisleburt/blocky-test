@@ -17,7 +17,7 @@ class Block {
   }
 
   fill(colour) {
-    if(this.isEmpty()) {
+    if (this.isEmpty()) {
       this.colour = colour;
     }
   }
