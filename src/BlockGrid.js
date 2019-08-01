@@ -68,6 +68,14 @@ class BlockGrid {
     }
     return neighbours;
   }
+
+  getSimilarNeighbours(x, y) {
+    if (!this.isInBounds(x, y)) {
+      return [];
+    }
+    const block = this.grid[x][y];
+    return this.getNeighbours(x, y).filter((neighbour) => (neighbour.colour === block.colour));
+  }
 }
 
 export default BlockGrid;
