@@ -17,6 +17,7 @@ class BlockGrid {
   }
 
   render(el = document.getElementById('gridEl')) {
+    el.innerHTML = ''; // Slow but not so slow its a problem.
     for (let x = 0; x < this.width; x++) {
       const id = 'col_' + x;
       const colEl = document.createElement('div');
@@ -39,7 +40,9 @@ class BlockGrid {
   }
 
   blockClicked(e, block) {
-    console.log(e, block);
+    this.emptyFrom(block.x, block.y);
+    this.applyGravity();
+    this.render();
   }
 
   isInBounds(x, y) {
