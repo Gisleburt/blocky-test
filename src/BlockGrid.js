@@ -41,6 +41,26 @@ class BlockGrid {
   blockClicked(e, block) {
     console.log(e, block);
   }
+
+  getNeighbours( x, y ) {
+    const neighbours = [];
+    // Check the request is in bounds.
+    if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+      if (x > 0) {
+        neighbours.push(this.grid[x - 1][y]);
+      }
+      if (x < this.width - 1) {
+        neighbours.push(this.grid[x + 1][y]);
+      }
+      if (y > 0) {
+        neighbours.push(this.grid[x][y - 1]);
+      }
+      if (y < this.height - 1) {
+        neighbours.push(this.grid[x][y + 1]);
+      }
+    }
+    return neighbours;
+  }
 }
 
 export default BlockGrid;
