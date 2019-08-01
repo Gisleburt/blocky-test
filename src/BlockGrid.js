@@ -91,6 +91,10 @@ class BlockGrid {
       return chain;
     }
   }
+
+  emptyFrom(x, y) {
+    this.getChain(x, y).forEach((block) => block.empty())
+  }
 }
 
 export default BlockGrid;
