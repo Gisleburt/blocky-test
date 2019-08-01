@@ -76,6 +76,21 @@ class BlockGrid {
     const block = this.grid[x][y];
     return this.getNeighbours(x, y).filter((neighbour) => (neighbour.colour === block.colour));
   }
+
+  // We'll need to modify chain as we go.
+  getChain(x, y, chain = []) {
+    if (this.isInBounds(x, y)) {
+      const block = this.grid[x][y];
+      if (chain.includes(block)) {
+        return chain;
+      }
+      chain.push(block);
+      this.getSimilarNeighbours(x, y).forEach((block) => {
+        this.getChain(block.x, block.y, chain);
+      });
+      return chain;
+    }
+  }
 }
 
 export default BlockGrid;
