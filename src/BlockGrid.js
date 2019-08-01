@@ -42,10 +42,17 @@ class BlockGrid {
     console.log(e, block);
   }
 
-  getNeighbours( x, y ) {
+  isInBounds(x, y) {
+    return x >= 0
+      && x < this.width
+      && y >= 0
+      && y < this.height;
+  }
+
+  getNeighbours(x, y) {
     const neighbours = [];
     // Check the request is in bounds.
-    if (x >= 0 && x < this.width && y >= 0 && y < this.height) {
+    if (this.isInBounds(x, y)) {
       if (x > 0) {
         neighbours.push(this.grid[x - 1][y]);
       }
