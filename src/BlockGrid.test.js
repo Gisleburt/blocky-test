@@ -80,4 +80,33 @@ describe('BlockGrid', () => {
     const blueNeighbours = grid.getSimilarNeighbours(2, 0);
     expect(blueNeighbours.length).toBe(1);
   });
+
+  it('it can find the full chain of similar blocks', () => {
+    const grid = new BlockGrid(3, 3);
+    // We'll override the grid:
+    //
+    // y
+    // 2 R R R
+    // 1 G G B
+    // 0 G G B
+    //   0 1 2 x
+    grid.grid[0][0].colour = 'green';
+    grid.grid[0][1].colour = 'green';
+    grid.grid[0][2].colour = 'red';
+    grid.grid[1][0].colour = 'green';
+    grid.grid[1][1].colour = 'green';
+    grid.grid[1][2].colour = 'red';
+    grid.grid[2][0].colour = 'blue';
+    grid.grid[2][1].colour = 'blue';
+    grid.grid[2][2].colour = 'red';
+
+    const redchain = grid.getChain(0, 2);
+    expect(redchain.length).toBe(3);
+
+    const greenChain = grid.getChain(0, 0);
+    expect(greenChain.length).toBe(4);
+
+    const blueChain = grid.getChain(2, 0);
+    expect(blueChain.length).toBe(2);
+  });
 });
