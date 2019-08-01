@@ -15,6 +15,12 @@ class Block {
   isEmpty() {
     return this.colour === empty;
   }
+
+  fill(colour) {
+    if(this.isEmpty()) {
+      this.colour = colour;
+    }
+  }
 }
 
 export default Block;
