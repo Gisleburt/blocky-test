@@ -11,4 +11,11 @@ describe('Block', () => {
       expect(COLOURS).toContain(block.colour);
     });
   });
+
+  it('should be emptiable', () => {
+    const block = new Block(0, 0);
+    expect(block.isEmpty()).toBe(false);
+    block.empty();
+    expect(block.isEmpty()).toBe(true);
+  });
 });
