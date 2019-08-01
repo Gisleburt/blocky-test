@@ -95,6 +95,29 @@ class BlockGrid {
   emptyFrom(x, y) {
     this.getChain(x, y).forEach((block) => block.empty())
   }
+
+  applyGravity() {
+    // We'll apply gravity multiple times, we could seek up but this is nice and simple
+    let stuffFell = false;
+    for (let y = 0; y < this.height; y++) {
+      for (let x = 0; x < this.width; x++) {
+        const block = this.grid[x][y];
+        if(block.isEmpty()) {
+          if(this.isInBounds(x, y+1)) {
+            const above = this.grid[x][y+1];
+            if(!above.isEmpty()) {
+              stuffFell = true;
+              block.fill(above.colour);
+              above.empty();
+            }
+          }
+        }
+      }
+    }
+    if (stuffFell) {
+      this.applyGravity();
+    }
+  }
 }
 
 export default BlockGrid;
